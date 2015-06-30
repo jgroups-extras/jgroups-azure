@@ -22,7 +22,7 @@ import org.jgroups.protocols.PingData;
 import org.jgroups.util.Responses;
 
 /**
- * Implementation of PING protocol for AZURE using Storage Blobs. See doc/design/AZURE_PING.md for design.
+ * Implementation of PING protocol for AZURE using Storage Blobs. See /DESIGN.md for design.
  *
  * @author Radoslav Husar
  * @version Jun 2015
