@@ -213,9 +213,9 @@ public class AZURE_PING extends FILE_PING {
                     CloudBlob blob = (CloudBlob) blobItem;
                     boolean deleted = blob.deleteIfExists();
                     if (deleted) {
-                        log.debug("Tried to delete file '%s' but it was already deleted.", blob.getName());
-                    } else {
                         log.trace("Deleted file '%s'.", blob.getName());
+                    } else {
+                        log.debug("Tried to delete file '%s' but it was already deleted.", blob.getName());
                     }
                 }
             } catch (Exception e) {
