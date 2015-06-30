@@ -14,7 +14,6 @@ import com.microsoft.azure.storage.blob.CloudBlockBlob;
 import com.microsoft.azure.storage.blob.ListBlobItem;
 import org.jgroups.Address;
 import org.jgroups.annotations.Property;
-import org.jgroups.conf.ClassConfigurator;
 import org.jgroups.logging.Log;
 import org.jgroups.logging.LogFactory;
 import org.jgroups.protocols.FILE_PING;
@@ -46,10 +45,6 @@ public class AZURE_PING extends FILE_PING {
     public static final int STREAM_BUFFER_SIZE = 4096;
 
     private CloudBlobContainer containerReference;
-
-    static {
-        ClassConfigurator.addProtocol((short) 563, AZURE_PING.class);
-    }
 
     @Override
     public void init() throws Exception {
