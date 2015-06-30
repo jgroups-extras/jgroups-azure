@@ -48,7 +48,7 @@ public class AZURE_PING extends FILE_PING {
     private CloudBlobContainer containerReference;
 
     static {
-        ClassConfigurator.addProtocol((short) 563, AZURE_PING.class);
+        ClassConfigurator.addProtocol((short) 530, AZURE_PING.class);
     }
 
     @Override
