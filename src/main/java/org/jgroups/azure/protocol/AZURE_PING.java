@@ -22,7 +22,7 @@ import org.jgroups.protocols.PingData;
 import org.jgroups.util.Responses;
 
 /**
- * Implementation of PING protocol for AZURE using Storage Blobs. See doc/design/AZURE_PING.md for design.
+ * Implementation of PING protocol for AZURE using Storage Blobs. See /DESIGN.md for design.
  *
  * @author Radoslav Husar
  * @version Jun 2015
@@ -48,7 +48,7 @@ public class AZURE_PING extends FILE_PING {
     private CloudBlobContainer containerReference;
 
     static {
-        ClassConfigurator.addProtocol((short) 563, AZURE_PING.class);
+        ClassConfigurator.addProtocol((short) 530, AZURE_PING.class);
     }
 
     @Override
@@ -213,9 +213,9 @@ public class AZURE_PING extends FILE_PING {
                     CloudBlob blob = (CloudBlob) blobItem;
                     boolean deleted = blob.deleteIfExists();
                     if (deleted) {
-                        log.debug("Tried to delete file '%s' but it was already deleted.", blob.getName());
-                    } else {
                         log.trace("Deleted file '%s'.", blob.getName());
+                    } else {
+                        log.debug("Tried to delete file '%s' but it was already deleted.", blob.getName());
                     }
                 }
             } catch (Exception e) {

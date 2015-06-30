@@ -14,7 +14,7 @@ import org.junit.Test;
  * @author Radoslav Husar
  * @version Jun 2015
  */
-public class AzureDiscoveryTest {
+public class AZURE_PINGDiscoveryTest {
 
     public static final int CHANNEL_COUNT = 5;
     public static final String CLUSTER_NAME = "azure-cluster";
@@ -31,20 +31,22 @@ public class AzureDiscoveryTest {
 
         printViews(channels);
 
-        // Stop the channels
+        // Stop all channels
+        // n.b. all channels must be closed, only disconnecting all concurrently can leave stale data
         for (JChannel channel : channels) {
-            channel.disconnect();
+            channel.close();
         }
 
     }
 
     private List<JChannel> create() throws Exception {
-        List<JChannel> result = new LinkedList<JChannel>();
+        List<JChannel> result = new LinkedList<>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
             JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/azure/protocol/tpc-azure.xml"));
 
             channel.connect(CLUSTER_NAME);
             if (i == 0) {
+                // Lets be clear about the coordinator
                 Util.sleep(1000);
             }
             result.add(channel);
@@ -52,7 +54,7 @@ public class AzureDiscoveryTest {
         return result;
     }
 
-    private static void printViews(List<JChannel> channels) {
+    protected static void printViews(List<JChannel> channels) {
         for (JChannel ch : channels) {
             System.out.println("Channel " + ch.getName() + " has view " + ch.getView());
         }
