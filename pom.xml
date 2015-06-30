@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.jgroups</groupId>
             <artifactId>jgroups</artifactId>
-            <version>3.6.3.Final</version>
+            <version>3.6.4.Final</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.azure</groupId>
