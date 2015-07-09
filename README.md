@@ -20,6 +20,20 @@ via Maven
 
 ## Configuration
 
+### WildFly
+
+First add the required modules then replace the existing discovery protocol (e.g. MPING) with
+
+```xml
+	<org.jgroups.azure.protocol.AZURE_PING module="org.jgroups.azure">
+		<property name="storage_account_name">${azure.account_name}</property>
+		<property name="storage_access_key">${azure.access_key}</property>
+		<property name="container">${azure.container:ping}</property>
+	</org.jgroups.azure.protocol.AZURE_PING>
+```
+
+### Directly in JGroups
+
 Add the protocol to the stack
 
 ```xml
