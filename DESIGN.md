@@ -2,6 +2,7 @@ AZURE_PING
 ==========
 
 Author: Radoslav Husar
+
 Version: June 2015
 
 Goal
@@ -23,10 +24,9 @@ following properties needed to authenticate and use the Azure Storage service:
 
  To find out these values, do the following:
 
- # Navigate to the Azure management portal at [https://manage.windowsazure.com/](https://manage.windowsazure.com/)
- # Create new storage service via NEW &gt; DATA SERVICES &gt; STORAGE &gt; QUICK CREATE and provide desired
-   configuration
- # Navigate to STORAGE &gt; (storage account name) &gt; MANAGE ACCESS KEYS
+ 1. Navigate to the Azure management portal at [https://manage.windowsazure.com/](https://manage.windowsazure.com/)
+ 2. Create new storage service via NEW → DATA SERVICES → STORAGE → QUICK CREATE and provide desired configuration
+ 3. Navigate to STORAGE → (storage account name) → MANAGE ACCESS KEYS
 
  _Described as of Azure console version June 2015._
 
