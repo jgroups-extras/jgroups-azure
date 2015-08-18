@@ -1,4 +1,4 @@
-package org.jgroups.azure.protocol;
+package org.jgroups.azure.protocols;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,7 +22,7 @@ import org.jgroups.protocols.PingData;
 import org.jgroups.util.Responses;
 
 /**
- * Implementation of PING protocol for AZURE using Storage Blobs. See /DESIGN.md for design.
+ * Implementation of PING protocols for AZURE using Storage Blobs. See /DESIGN.md for design.
  *
  * @author Radoslav Husar
  * @version Jun 2015

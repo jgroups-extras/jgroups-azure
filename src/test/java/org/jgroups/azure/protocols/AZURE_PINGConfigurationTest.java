@@ -1,9 +1,9 @@
-package org.jgroups.azure.protocol;
+package org.jgroups.azure.protocols;
 
 import org.junit.Test;
 
 /**
- * Unit test for AZURE_PING protocol configuration.
+ * Unit test for AZURE_PING protocols configuration.
  *
  * @author Radoslav Husar
  * @version Jun 2015
