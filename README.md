@@ -14,7 +14,7 @@ via Maven
 <dependency>
     <groupId>org.jgroups</groupId>
     <artifactId>jgroups-azure</artifactId>
-    <version>1.0.0.Alpha1-SNAPSHOT</version>
+    <version>${version.org.jgroups.azure}</version>
 </dependency>
 ```
 
@@ -22,14 +22,20 @@ via Maven
 
 ### WildFly
 
-First add the required modules then replace the existing discovery protocol (e.g. MPING) with
+First add the required modules then replace the existing discovery protocol (PING, MPING, etc.) with
 
 ```xml
-	<org.jgroups.azure.protocols.AZURE_PING module="org.jgroups.azure">
-		<property name="storage_account_name">${azure.account_name}</property>
-		<property name="storage_access_key">${azure.access_key}</property>
-		<property name="container">${azure.container:ping}</property>
-	</org.jgroups.azure.protocols.AZURE_PING>
+<protocol type="org.jgroups.azure.protocols.AZURE_PING" module="org.jgroups.azure">
+     <property name="storage_account_name">
+         ${azure.account_name}
+     </property>
+     <property name="storage_access_key">
+         ${azure.access_key}
+     </property>
+     <property name="container">
+         ${azure.container:ping}
+     </property>
+ </protocol>
 ```
 
 ### Directly in JGroups
@@ -37,11 +43,11 @@ First add the required modules then replace the existing discovery protocol (e.g
 Add the protocol to the stack
 
 ```xml
-	<org.jgroups.azure.protocols.AZURE_PING
-		storage_account_name="${azure.account_name}"
-		storage_access_key="${azure.access_key}"
-		container="${azure.container:ping}"
-	/>
+<org.jgroups.azure.protocols.AZURE_PING
+	storage_account_name="${azure.account_name}"
+	storage_access_key="${azure.access_key}"
+	container="${azure.container:ping}"
+/>
 ```
 
 ## Building
@@ -53,7 +59,7 @@ Use Maven to build
 
 ## Testing
 
-The tests expect valid credentials for Azure, you can supply using properties:
+The tests expect valid credentials for Azure which you can supply using properties:
 
     $ mvn test -Dazure.account_name="A" -Dazure.access_key="B" -Djava.net.preferIPv4Stack=true
 
