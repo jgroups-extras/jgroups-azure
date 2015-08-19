@@ -1,6 +1,6 @@
 <!--
   Copy of the original jgroups/conf/tcp.xml reconfigured to use AZURE_PING and enable remove_all_files_on_view_change for the
-  purpose of testing org.jgroups.azure.protocol.AZURE_PING#removeAll(..).
+  purpose of testing org.jgroups.azure.protocols.AZURE_PING#removeAll(..).
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="urn:org:jgroups"
@@ -34,7 +34,7 @@
          oob_thread_pool.queue_enabled="false"
          oob_thread_pool.queue_max_size="100"
          oob_thread_pool.rejection_policy="discard"/>
-    <org.jgroups.azure.protocol.AZURE_PING
+    <org.jgroups.azure.protocols.AZURE_PING
             storage_account_name="${azure.account_name}"
             storage_access_key="${azure.access_key}"
             container="${azure.container:ping}"

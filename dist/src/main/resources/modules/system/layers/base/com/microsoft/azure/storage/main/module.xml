@@ -21,8 +21,7 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<module xmlns="urn:jboss:module:1.3"
-        name="com.microsoft.azure.storage">
+<module xmlns="urn:jboss:module:1.3" name="com.microsoft.azure.storage">
 
     <resources>
         <resource-root path="azure-storage-${version.com.microsoft.azure.azure-storage}.jar"/>
@@ -30,9 +29,9 @@
 
     <dependencies>
         <module name="com.fasterxml.jackson.core.jackson-core"/>
-        <module name="org.apache.commons.lang"/>
-        <module name="org.slf4j"/>
         <module name="javax.api"/>
+        <!-- <module name="org.apache.commons.lang"/> -->
+        <module name="org.slf4j"/>
     </dependencies>
 
 </module>
