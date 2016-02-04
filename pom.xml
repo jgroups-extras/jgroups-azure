@@ -69,7 +69,7 @@
     </scm>
 
     <properties>
-        <version.org.jgroups>3.6.4.Final</version.org.jgroups>
+        <version.org.jgroups>3.6.7.Final</version.org.jgroups>
         <version.com.microsoft.azure.azure-storage>2.2.0</version.com.microsoft.azure.azure-storage>
         <!-- latest upstream version -->
         <version.com.fasterxml.jackson>2.5.1</version.com.fasterxml.jackson>
