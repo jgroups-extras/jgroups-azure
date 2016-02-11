@@ -2,6 +2,7 @@ package org.jgroups.azure.protocols;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.jgroups.JChannel;
 import org.jgroups.util.Util;
@@ -17,7 +18,7 @@ import org.junit.Test;
 public class AZURE_PINGDiscoveryTest {
 
     public static final int CHANNEL_COUNT = 5;
-    public static final String CLUSTER_NAME = "azure-cluster";
+    public static final String CLUSTER_NAME = UUID.randomUUID().toString();
 
     @Test
     public void testDiscovery() throws Exception {
