@@ -1,4 +1,4 @@
-package org.jgroups.azure.protocols;
+package org.jgroups.protocols.azure;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -25,7 +25,7 @@ via Maven
 First add the required modules then replace the existing discovery protocol (PING, MPING, etc.) with
 
 ```xml
-<protocol type="org.jgroups.azure.protocols.AZURE_PING" module="org.jgroups.azure">
+<protocol type="azure.AZURE_PING" module="org.jgroups.azure">
      <property name="storage_account_name">
          ${azure.account_name}
      </property>
@@ -43,7 +43,7 @@ First add the required modules then replace the existing discovery protocol (PIN
 Add the protocol to the stack
 
 ```xml
-<org.jgroups.azure.protocols.AZURE_PING
+<azure.AZURE_PING
 	storage_account_name="${azure.account_name}"
 	storage_access_key="${azure.access_key}"
 	container="${azure.container:ping}"

@@ -1,4 +1,4 @@
-package org.jgroups.azure.protocols;
+package org.jgroups.protocols.azure;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class AZURE_PINGDiscoveryTest {
     private List<JChannel> create() throws Exception {
         List<JChannel> result = new LinkedList<>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
-            JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/azure/protocols/tpc-azure.xml"));
+            JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/protocols/azure/tpc-azure.xml"));
 
             channel.connect(CLUSTER_NAME);
             if (i == 0) {
