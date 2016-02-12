@@ -23,6 +23,10 @@
 
 <module xmlns="urn:jboss:module:1.3" name="com.microsoft.azure.storage">
 
+    <properties>
+        <property name="jboss.api" value="private"/>
+    </properties>
+
     <resources>
         <resource-root path="azure-storage-${version.com.microsoft.azure.azure-storage}.jar"/>
     </resources>
@@ -30,6 +34,7 @@
     <dependencies>
         <module name="com.fasterxml.jackson.core.jackson-core"/>
         <module name="javax.api"/>
+        <!-- Only used by com.microsoft.azure.storage.analytics.CloudAnalyticsClient which we do not use and this module is private. -->
         <!-- <module name="org.apache.commons.lang"/> -->
         <module name="org.slf4j"/>
     </dependencies>
