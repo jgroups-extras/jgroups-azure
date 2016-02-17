@@ -5,10 +5,48 @@
 Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft
 Azure Java SDK.
 
+## Configuration
 
-## Usage
+### WildFly
 
-via Maven
+First copy the required modules (from `dist/target/wildfly-jgroups-azure-<version>/modules`) to the WildFly installation,
+then replace the existing discovery protocol (PING, MPING, etc.) with the following:
+
+```xml
+<protocol type="azure.AZURE_PING" module="org.jgroups.azure">
+    <property name="storage_account_name">
+         ${jboss.jgroups.azure_ping.storage_account_name}
+    </property>
+    <property name="storage_access_key">
+         ${jboss.jgroups.azure_ping.storage_access_key}
+    </property>
+    <property name="container">
+         ${jboss.jgroups.azure_ping.container}
+    </property>
+ </protocol>
+```
+
+Following WildFly 10.1/11.0 the modules will be bundled in the distribution, use directly have profile located at
+`wildfly-<version>/docs/examples/configs/standalone-azure-ha.xml` or replace the existing discovery protocol with
+the following configuration (no need to specify module name):
+
+```xml
+<protocol type="azure.AZURE_PING">
+     <property name="storage_account_name">
+         ${jboss.jgroups.azure_ping.storage_account_name}
+     </property>
+     <property name="storage_access_key">
+         ${jboss.jgroups.azure_ping.storage_access_key}
+     </property>
+     <property name="container">
+         ${jboss.jgroups.azure_ping.container}
+     </property>
+</protocol>
+```
+
+### Directly in JGroups
+
+You can bring in all dependencies via Maven:
 
 ```xml
 <dependency>
@@ -18,43 +56,23 @@ via Maven
 </dependency>
 ```
 
-## Configuration
-
-### WildFly
-
-First add the required modules then replace the existing discovery protocol (PING, MPING, etc.) with
-
-```xml
-<protocol type="azure.AZURE_PING" module="org.jgroups.azure">
-     <property name="storage_account_name">
-         ${azure.account_name}
-     </property>
-     <property name="storage_access_key">
-         ${azure.access_key}
-     </property>
-     <property name="container">
-         ${azure.container:ping}
-     </property>
- </protocol>
-```
-
-### Directly in JGroups
-
-Add the protocol to the stack
+Then add or replace an existing discovery protocol in the stack:
 
 ```xml
 <azure.AZURE_PING
-	storage_account_name="${azure.account_name}"
-	storage_access_key="${azure.access_key}"
-	container="${azure.container:ping}"
+	storage_account_name="${jboss.jgroups.azure_ping.storage_account_name}"
+	storage_access_key="${jboss.jgroups.azure_ping.storage_access_key}"
+	container="${jboss.jgroups.azure_ping.container:ping}"
 />
 ```
 
 ## Building
 
-Use Maven to build
+Use Maven to build:
 
-    $ mvn install
+    $ mvn install -DskipTests
+
+_Note that running the tests requires access to Azure._
 
 
 ## Testing
