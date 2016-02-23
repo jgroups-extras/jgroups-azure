@@ -1,6 +1,6 @@
 # JGroups Azure
 
-[![Build Status](https://travis-ci.org/rhusar/jgroups-azure.svg?branch=master)](https://travis-ci.org/rhusar/jgroups-azure)
+[![Build Status](https://travis-ci.org/jgroups-extras/jgroups-azure.svg?branch=master)](https://travis-ci.org/jgroups-extras/jgroups-azure)
 
 Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft
 Azure Java SDK.

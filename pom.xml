@@ -31,7 +31,7 @@
 
     <name>JGroups Azure (parent)</name>
     <description>Implementation of the JGroups Discovery protocol for Azure based on blob storage service.</description>
-    <url>https://github.com/rhusar/jgroups-azure-ping</url>
+    <url>https://github.com/jgroups-extras/jgroups-azure</url>
 
     <modules>
         <module>azure</module>
@@ -56,9 +56,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:rhusar/jgroups-azure.git</connection>
-        <developerConnection>scm:git:git@github.com:rhusar/jgroups-azure.git</developerConnection>
-        <url>git@github.com:rhusar/jgroups-azure.git</url>
+        <connection>scm:git:git@github.com:jgroups-extras/jgroups-azure.git</connection>
+        <developerConnection>scm:git:git@github.com:jgroups-extras/jgroups-azure.git</developerConnection>
+        <url>git@github.com:jgroups-extras/jgroups-azure.git</url>
         <tag>HEAD</tag>
     </scm>
 
