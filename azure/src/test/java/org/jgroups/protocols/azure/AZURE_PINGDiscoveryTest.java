@@ -26,7 +26,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Functional test for AZURE_PING discovery.
+ * Functional tests for AZURE_PING discovery.
  *
  * @author Radoslav Husar
  * @version Jun 2015
@@ -38,8 +38,17 @@ public class AZURE_PINGDiscoveryTest {
 
     @Test
     public void testDiscovery() throws Exception {
+        discover(CLUSTER_NAME);
+    }
 
-        List<JChannel> channels = create();
+    @Test
+    public void testDiscoveryObscureClusterName() throws Exception {
+        String obscureClusterName = "``\\//--+ěščřžýáíé==''!@#$%^&*()_{}<>?";
+        discover(obscureClusterName);
+    }
+
+    private void discover(String clusterName) throws Exception {
+        List<JChannel> channels = create(clusterName);
 
         // Asserts the views are there
         for (JChannel channel : channels) {
@@ -53,15 +62,14 @@ public class AZURE_PINGDiscoveryTest {
         for (JChannel channel : channels) {
             channel.close();
         }
-
     }
 
-    private List<JChannel> create() throws Exception {
+    private List<JChannel> create(String clusterName) throws Exception {
         List<JChannel> result = new LinkedList<>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
             JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/protocols/azure/tpc-azure.xml"));
 
-            channel.connect(CLUSTER_NAME);
+            channel.connect(clusterName);
             if (i == 0) {
                 // Lets be clear about the coordinator
                 Util.sleep(1000);
