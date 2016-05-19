@@ -89,7 +89,8 @@ public class AZURE_PING extends FILE_PING {
             }
 
         } catch (Exception ex) {
-            log.error("Error creating a storage client! Check your configuration.", ex);
+            log.error("Error creating a storage client! Check your configuration.");
+            throw ex;
         }
     }
 
