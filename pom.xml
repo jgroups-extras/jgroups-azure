@@ -63,7 +63,7 @@
     </scm>
 
     <properties>
-        <version.org.jgroups>3.6.8.Final</version.org.jgroups>
+        <version.org.jgroups>3.6.9.Final</version.org.jgroups>
         <version.com.microsoft.azure.azure-storage>4.0.0</version.com.microsoft.azure.azure-storage>
 
         <!-- Overridden versions as managed by target container (WildFly 10.0.0.Final) -->
