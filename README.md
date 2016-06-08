@@ -7,7 +7,27 @@ Azure Java SDK.
 
 ## Configuration
 
-### WildFly
+### WildFly 10.1 / JBoss EAP 7.0
+
+Since WildFly 10.1 the required modules are bundled with the distribution. Users can directly use server profile located at
+`wildfly-<version>/docs/examples/configs/standalone-azure-ha.xml` or replace the discovery protocol in their existing 
+server profiles with the following configuration (no need to specify module name):
+
+```xml
+<protocol type="azure.AZURE_PING">
+     <property name="storage_account_name">
+         ${jboss.jgroups.azure_ping.storage_account_name}
+     </property>
+     <property name="storage_access_key">
+         ${jboss.jgroups.azure_ping.storage_access_key}
+     </property>
+     <property name="container">
+         ${jboss.jgroups.azure_ping.container}
+     </property>
+</protocol>
+```
+
+### WildFly 10.0 and older
 
 First copy the required modules (from `dist/target/wildfly-jgroups-azure-<version>/modules`) to the WildFly installation,
 then replace the existing discovery protocol (PING, MPING, etc.) with the following:
@@ -24,24 +44,6 @@ then replace the existing discovery protocol (PING, MPING, etc.) with the follow
          ${jboss.jgroups.azure_ping.container}
     </property>
  </protocol>
-```
-
-Following WildFly 10.1/11.0 the modules will be bundled in the distribution, use directly have profile located at
-`wildfly-<version>/docs/examples/configs/standalone-azure-ha.xml` or replace the existing discovery protocol with
-the following configuration (no need to specify module name):
-
-```xml
-<protocol type="azure.AZURE_PING">
-     <property name="storage_account_name">
-         ${jboss.jgroups.azure_ping.storage_account_name}
-     </property>
-     <property name="storage_access_key">
-         ${jboss.jgroups.azure_ping.storage_access_key}
-     </property>
-     <property name="container">
-         ${jboss.jgroups.azure_ping.container}
-     </property>
-</protocol>
 ```
 
 ### Directly in JGroups
