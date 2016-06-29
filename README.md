@@ -9,6 +9,8 @@ Azure Java SDK.
 
 ### WildFly 10.1 / JBoss EAP 7.0
 
+#### Using a preconfigured profile
+
 Since WildFly 10.1 the required modules are bundled with the distribution. Users can directly use server profile located at
 `wildfly-<version>/docs/examples/configs/standalone-azure-ha.xml` or replace the discovery protocol in their existing 
 server profiles with the following configuration (no need to specify module name):
@@ -26,6 +28,22 @@ server profiles with the following configuration (no need to specify module name
      </property>
 </protocol>
 ```
+
+#### Upgrading an existing profile via CLI
+
+To upgrade an existing profile to use TCP stack by default and AZURE_PING protocol via CLI, start `./bin/jboss-cli.sh`
+(or corresponding `bat` script on Windows) and run the following batch followed by a reload:
+
+```
+batch
+/subsystem=jgroups/channel=ee:write-attribute(name=stack,value=tcp)
+/subsystem=jgroups/stack=tcp/protocol=MPING:remove
+/subsystem=jgroups/stack=tcp/protocol=azure.AZURE_PING:add(add-index=0,properties=[storage_account_name=${jboss.jgroups.azure_ping.storage_account_name:},storage_access_key=${jboss.jgroups.azure_ping.storage_access_key:},container=${jboss.jgroups.azure_ping.container:}])
+run-batch
+/:reload
+```
+
+_Note that due to issue [WFLY-6782](https://issues.jboss.org/browse/WFLY-6782) adding via CLI may fail on older versions._
 
 ### WildFly 10.0 and older
 
