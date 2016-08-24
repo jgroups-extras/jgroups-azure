@@ -3,3 +3,5 @@ language: java
 jdk:
   - oraclejdk8
 script: "mvn clean install -Dazure.account_name=$account_name -Dazure.access_key=$access_key -Djava.net.preferIPv4Stack=true"
+notifications:
+  email: false
