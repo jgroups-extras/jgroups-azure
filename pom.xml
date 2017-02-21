@@ -24,7 +24,7 @@
         <version>22</version>
     </parent>
 
-    <groupId>org.jgroups</groupId>
+    <groupId>org.jgroups.azure</groupId>
     <artifactId>jgroups-azure-parent</artifactId>
     <version>1.1.0.Final-SNAPSHOT</version>
     <packaging>pom</packaging>
