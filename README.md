@@ -70,7 +70,7 @@ You can bring in all dependencies via Maven:
 
 ```xml
 <dependency>
-    <groupId>org.jgroups</groupId>
+    <groupId>org.jgroups.azure</groupId>
     <artifactId>jgroups-azure</artifactId>
     <version>${version.org.jgroups.azure}</version>
 </dependency>
