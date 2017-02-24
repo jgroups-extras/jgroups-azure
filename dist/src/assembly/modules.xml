@@ -30,7 +30,7 @@
             <useProjectArtifact>false</useProjectArtifact>
             <unpack>false</unpack>
             <includes>
-                <include>org.jgroups:jgroups-azure</include>
+                <include>org.jgroups.azure:jgroups-azure</include>
             </includes>
         </dependencySet>
         <!-- Dependencies not provided by WildFly-->
