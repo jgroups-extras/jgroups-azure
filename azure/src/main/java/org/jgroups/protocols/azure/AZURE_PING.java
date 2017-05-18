@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Red Hat Inc., and individual contributors
+ * Copyright 2017 Red Hat Inc., and individual contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@ package org.jgroups.protocols.azure;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.microsoft.azure.storage.CloudStorageAccount;
@@ -35,13 +39,11 @@ import org.jgroups.logging.Log;
 import org.jgroups.logging.LogFactory;
 import org.jgroups.protocols.FILE_PING;
 import org.jgroups.protocols.PingData;
-import org.jgroups.util.Responses;
 
 /**
  * Implementation of PING protocols for AZURE using Storage Blobs. See /DESIGN.md for design.
  *
  * @author Radoslav Husar
- * @version Jun 2015
  */
 public class AZURE_PING extends FILE_PING {
 
@@ -83,9 +85,9 @@ public class AZURE_PING extends FILE_PING {
             boolean created = containerReference.createIfNotExists();
 
             if (created) {
-                log.info("Created container named '%s'.", container);
+                log.info("Created container named '" + container + "'.");
             } else {
-                log.debug("Using existing container named '%s'.", container);
+                log.debug("Using existing container named '" + container + "'.");
             }
 
         } catch (Exception ex) {
@@ -118,10 +120,11 @@ public class AZURE_PING extends FILE_PING {
     }
 
     @Override
-    protected void readAll(final List<Address> members, final String clustername, final Responses responses) {
+    protected List<PingData> readAll(String clustername) {
         if (clustername == null) {
-            return;
+            return null;
         }
+        List<PingData> pingData = new LinkedList<PingData>();
 
         String prefix = sanitize(clustername);
 
@@ -135,55 +138,46 @@ public class AZURE_PING extends FILE_PING {
                     ByteArrayOutputStream os = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
                     blob.download(os);
                     byte[] pingBytes = os.toByteArray();
-                    parsePingData(pingBytes, members, responses);
+                    pingData.add(parsePingData(pingBytes));
                 }
             } catch (Exception t) {
                 log.error("Error fetching ping data.");
             }
         }
+
+        return pingData;
     }
 
-    protected void parsePingData(final byte[] pingBytes, final List<Address> members, final Responses responses) {
+    private static PingData parsePingData(final byte[] pingBytes) throws Exception {
         if (pingBytes == null || pingBytes.length <= 0) {
-            return;
+            return null;
         }
-        List<PingData> list;
-        try {
-            list = read(new ByteArrayInputStream(pingBytes));
-            if (list != null) {
-                // This is a common piece of logic for all PING protocols copied from org/jgroups/protocols/FILE_PING.java:245
-                // Maybe could be extracted for all PING impls to share this logic?
-                for (PingData data : list) {
-                    if (members == null || members.contains(data.getAddress())) {
-                        responses.addResponse(data, data.isCoord());
-                    }
-                    if (local_addr != null && !local_addr.equals(data.getAddress())) {
-                        addDiscoveryResponseToCaches(data.getAddress(), data.getLogicalName(), data.getPhysicalAddr());
-                    }
-                }
-                // end copied block
-            }
-        } catch (Exception e) {
-            log.error("Error unmarshalling ping data.", e);
-        }
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(pingBytes);
+        DataInput di = new DataInputStream(bis);
+
+        PingData tmp = new PingData();
+        tmp.readFrom(di);
+        return tmp;
     }
 
     @Override
-    protected void write(final List<PingData> list, final String clustername) {
-        if (list == null || clustername == null) {
+    protected synchronized void writeToFile(PingData data, String clustername) {
+        if (data == null || clustername == null) {
             return;
         }
 
         String filename = addressToFilename(clustername, local_addr);
         ByteArrayOutputStream out = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
+        DataOutputStream dataOut = new DataOutputStream(out);
 
         try {
-            write(list, out);
-            byte[] data = out.toByteArray();
+            data.writeTo(dataOut);
+            byte[] uploadData = out.toByteArray();
 
             // Upload the file
             CloudBlockBlob blob = containerReference.getBlockBlobReference(filename);
-            blob.upload(new ByteArrayInputStream(data), data.length);
+            blob.upload(new ByteArrayInputStream(uploadData), uploadData.length);
 
         } catch (Exception ex) {
             log.error("Error marshalling and uploading ping data.", ex);
@@ -204,9 +198,9 @@ public class AZURE_PING extends FILE_PING {
             boolean deleted = blob.deleteIfExists();
 
             if (deleted) {
-                log.debug("Tried to delete file '%s' but it was already deleted.", filename);
+                log.debug("Tried to delete file '" + filename + "' but it was already deleted.");
             } else {
-                log.trace("Deleted file '%s'.", filename);
+                log.trace("Deleted file '" + filename + "'.");
             }
 
         } catch (Exception ex) {
@@ -214,38 +208,11 @@ public class AZURE_PING extends FILE_PING {
         }
     }
 
-    @Override
-    protected void removeAll(String clustername) {
-        if (clustername == null) {
-            return;
-        }
-
-        clustername = sanitize(clustername);
-
-        Iterable<ListBlobItem> listBlobItems = containerReference.listBlobs(clustername);
-        for (ListBlobItem blobItem : listBlobItems) {
-            try {
-                // If the item is a blob and not a virtual directory.
-                if (blobItem instanceof CloudBlob) {
-                    CloudBlob blob = (CloudBlob) blobItem;
-                    boolean deleted = blob.deleteIfExists();
-                    if (deleted) {
-                        log.trace("Deleted file '%s'.", blob.getName());
-                    } else {
-                        log.debug("Tried to delete file '%s' but it was already deleted.", blob.getName());
-                    }
-                }
-            } catch (Exception e) {
-                log.error("Error deleting ping data for cluster '" + clustername + "'.", e);
-            }
-        }
-    }
-
     /**
      * Converts cluster name and address into a filename.
      */
     protected static String addressToFilename(final String clustername, final Address address) {
-        return sanitize(clustername) + "-" + addressToFilename(address);
+        return sanitize(clustername) + "-" + addressAsString(address);
     }
 
     /**

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2015 Red Hat Inc., and individual contributors
+  ~ Copyright 2017 Red Hat Inc., and individual contributors
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,31 +15,33 @@
   -->
 
 <!--
-  Copy of the original jgroups/conf/tcp.xml reconfigured to use AZURE_PING and enable remove_all_files_on_view_change for the
-  purpose of testing AZURE_PING#removeAll(..).
+  Copy of the original jgroups/conf/tcp.xml reconfigured to use AZURE_PING.
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="urn:org:jgroups"
-        xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd">
+        xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/JGroups-3.2.xsd">
     <TCP bind_port="7800"
+         loopback="false"
          recv_buf_size="${tcp.recv_buf_size:5M}"
-         send_buf_size="${tcp.send_buf_size:5M}"
+         send_buf_size="${tcp.send_buf_size:640K}"
          max_bundle_size="64K"
          max_bundle_timeout="30"
+         enable_bundling="true"
+         use_send_queues="true"
          sock_conn_timeout="300"
 
-         timer_type="new3"
+         timer_type="old"
          timer.min_threads="4"
          timer.max_threads="10"
          timer.keep_alive_time="3000"
          timer.queue_max_size="500"
 
          thread_pool.enabled="true"
-         thread_pool.min_threads="2"
-         thread_pool.max_threads="8"
+         thread_pool.min_threads="1"
+         thread_pool.max_threads="10"
          thread_pool.keep_alive_time="5000"
-         thread_pool.queue_enabled="true"
-         thread_pool.queue_max_size="10000"
+         thread_pool.queue_enabled="false"
+         thread_pool.queue_max_size="100"
          thread_pool.rejection_policy="discard"
 
          oob_thread_pool.enabled="true"
@@ -53,20 +55,25 @@
             storage_account_name="${azure.account_name}"
             storage_access_key="${azure.access_key}"
             container="${azure.container:ping}"
-            remove_all_files_on_view_change="true"/>
-    <MERGE3 min_interval="10000"
+    />
+    <MERGE2 min_interval="10000"
             max_interval="30000"/>
     <FD_SOCK/>
-    <FD timeout="3000" max_tries="3"/>
+    <FD timeout="3000"
+        max_tries="3"/>
     <VERIFY_SUSPECT timeout="1500"/>
     <BARRIER/>
     <pbcast.NAKACK2 use_mcast_xmit="false"
                     discard_delivered_msgs="true"/>
-    <UNICAST3/>
-    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000"
+    <UNICAST/>
+    <pbcast.STABLE stability_delay="1000"
+                   desired_avg_gossip="50000"
                    max_bytes="4M"/>
-    <pbcast.GMS print_local_addr="true" join_timeout="2000"
+    <pbcast.GMS print_local_addr="true"
+                join_timeout="3000"
                 view_bundling="true"/>
+    <UFC max_credits="2M"
+         min_threshold="0.4"/>
     <MFC max_credits="2M"
          min_threshold="0.4"/>
     <FRAG2 frag_size="60K"/>

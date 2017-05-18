@@ -29,7 +29,6 @@ import org.junit.Test;
  * Functional tests for AZURE_PING discovery.
  *
  * @author Radoslav Husar
- * @version Jun 2015
  */
 public class AZURE_PINGDiscoveryTest {
 
@@ -65,7 +64,7 @@ public class AZURE_PINGDiscoveryTest {
     }
 
     private List<JChannel> create(String clusterName) throws Exception {
-        List<JChannel> result = new LinkedList<>();
+        List<JChannel> result = new LinkedList<JChannel>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
             JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/protocols/azure/tpc-azure.xml"));
 
