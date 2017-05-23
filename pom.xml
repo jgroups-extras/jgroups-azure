@@ -62,7 +62,7 @@
     </scm>
 
     <properties>
-        <!-- Properties to synchronize with EAP 6.2.x -->
+        <!-- Properties to synchronize with EAP 6.4.x -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.min.version>3.2.3</maven.min.version>
@@ -146,8 +146,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
                     </configuration>
                 </plugin>
                 <plugin>
