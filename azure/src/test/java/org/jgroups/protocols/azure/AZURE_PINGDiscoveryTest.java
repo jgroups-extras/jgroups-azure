@@ -33,16 +33,15 @@ import org.junit.Test;
 public class AZURE_PINGDiscoveryTest {
 
     public static final int CHANNEL_COUNT = 5;
-    public static final String CLUSTER_NAME = UUID.randomUUID().toString();
 
     @Test
     public void testDiscovery() throws Exception {
-        discover(CLUSTER_NAME);
+        discover(UUID.randomUUID().toString());
     }
 
     @Test
     public void testDiscoveryObscureClusterName() throws Exception {
-        String obscureClusterName = "``\\//--+ěščřžýáíé==''!@#$%^&*()_{}<>?";
+        String obscureClusterName = UUID.randomUUID().toString() + "``\\//--+ěščřžýáíé==''!@#$%^&*()_{}<>?";
         discover(obscureClusterName);
     }
 
