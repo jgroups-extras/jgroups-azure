@@ -1,67 +1,44 @@
 # JGroups Azure
 
-[![Build Status](https://travis-ci.org/jgroups-extras/jgroups-azure.svg?branch=master)](https://travis-ci.org/jgroups-extras/jgroups-azure)
+[![Build Status](https://travis-ci.org/jgroups-extras/jgroups-azure.svg?branch=0.9)](https://travis-ci.org/jgroups-extras/jgroups-azure)
+
+*Support branch for EAP 6.4.15 (or higher) and for JGroups 3.2.16 (or higher).*
 
 Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft
 Azure Java SDK.
 
 ## Configuration
 
-### WildFly 10.1 / JBoss EAP 7.0
-
-#### Using a preconfigured profile
-
-Since WildFly 10.1 the required modules are bundled with the distribution. Users can directly use server profile located at
-`wildfly-<version>/docs/examples/configs/standalone-azure-ha.xml` or replace the discovery protocol in their existing 
-server profiles with the following configuration (no need to specify module name):
-
-```xml
-<protocol type="azure.AZURE_PING">
-     <property name="storage_account_name">
-         ${jboss.jgroups.azure_ping.storage_account_name}
-     </property>
-     <property name="storage_access_key">
-         ${jboss.jgroups.azure_ping.storage_access_key}
-     </property>
-     <property name="container">
-         ${jboss.jgroups.azure_ping.container}
-     </property>
-</protocol>
-```
+### JBoss EAP 6.4
 
 #### Upgrading an existing profile via CLI
 
-To upgrade an existing profile to use TCP stack by default and AZURE_PING protocol via CLI, start `./bin/jboss-cli.sh`
+To upgrade an existing profile to create new stack with AZURE_PING protocol via CLI, start `./bin/jboss-cli.sh`
 (or corresponding `bat` script on Windows) and run the following batch followed by a reload:
 
 ```
 batch
-/subsystem=jgroups/channel=ee:write-attribute(name=stack,value=tcp)
-/subsystem=jgroups/stack=tcp/protocol=MPING:remove
-/subsystem=jgroups/stack=tcp/protocol=azure.AZURE_PING:add(add-index=0,properties=[storage_account_name=${jboss.jgroups.azure_ping.storage_account_name:},storage_access_key=${jboss.jgroups.azure_ping.storage_access_key:},container=${jboss.jgroups.azure_ping.container:}])
+/subsystem=jgroups/stack=azure:add
+/subsystem=jgroups/stack=azure/transport=TRANSPORT:add(type=TCP,socket-binding=jgroups-tcp)
+/subsystem=jgroups/stack=azure/:add-protocol(type=azure.AZURE_PING)
+/subsystem=jgroups/stack=azure/protocol=azure.AZURE_PING/property=container:add(value=${jboss.jgroups.azure_ping.container})
+/subsystem=jgroups/stack=azure/protocol=azure.AZURE_PING/property=storage_account_name:add(value=${jboss.jgroups.azure_ping.storage_account_name})
+/subsystem=jgroups/stack=azure/protocol=azure.AZURE_PING/property=storage_access_key:add(value=${jboss.jgroups.azure_ping.storage_access_key})
+/subsystem=jgroups/stack=azure/:add-protocol(type=MERGE2
+/subsystem=jgroups/stack=azure/:add-protocol(type=FD_SOCK,socket-binding=jgroups-tcp-fd)
+/subsystem=jgroups/stack=azure/:add-protocol(type=FD
+/subsystem=jgroups/stack=azure/:add-protocol(type=VERIFY_SUSPECT
+/subsystem=jgroups/stack=azure/:add-protocol(type=pbcast.NAKACK
+/subsystem=jgroups/stack=azure/:add-protocol(type=UNICAST2
+/subsystem=jgroups/stack=azure/:add-protocol(type=pbcast.STABLE
+/subsystem=jgroups/stack=azure/:add-protocol(type=pbcast.GMS
+/subsystem=jgroups/stack=azure/:add-protocol(type=UFC
+/subsystem=jgroups/stack=azure/:add-protocol(type=MFC
+/subsystem=jgroups/stack=azure/:add-protocol(type=FRAG2
+/subsystem=jgroups/stack=azure/:add-protocol(type=RSVP
+/subsystem=jgroups:write-attribute(name=default-stack, value=azure)
 run-batch
 /:reload
-```
-
-_Note that due to issue [WFLY-6782](https://issues.jboss.org/browse/WFLY-6782) adding via CLI may fail on older versions._
-
-### WildFly 10.0 and older
-
-First copy the required modules (from `dist/target/wildfly-jgroups-azure-<version>/modules`) to the WildFly installation,
-then replace the existing discovery protocol (PING, MPING, etc.) with the following:
-
-```xml
-<protocol type="azure.AZURE_PING" module="org.jgroups.azure">
-    <property name="storage_account_name">
-         ${jboss.jgroups.azure_ping.storage_account_name}
-    </property>
-    <property name="storage_access_key">
-         ${jboss.jgroups.azure_ping.storage_access_key}
-    </property>
-    <property name="container">
-         ${jboss.jgroups.azure_ping.container}
-    </property>
- </protocol>
 ```
 
 ### Directly in JGroups
@@ -105,7 +82,7 @@ The tests expect valid credentials for Azure which you can supply using properti
 
 ## License
 
-    Copyright 2015 Red Hat Inc.
+    Copyright 2017 Red Hat Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
