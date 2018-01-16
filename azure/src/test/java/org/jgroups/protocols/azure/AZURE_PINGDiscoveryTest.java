@@ -29,7 +29,6 @@ import org.junit.Test;
  * Functional tests for AZURE_PING discovery.
  *
  * @author Radoslav Husar
- * @version Jun 2015
  */
 public class AZURE_PINGDiscoveryTest {
 

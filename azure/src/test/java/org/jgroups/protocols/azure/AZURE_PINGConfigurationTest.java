@@ -22,7 +22,6 @@ import org.junit.Test;
  * Unit test for AZURE_PING protocols configuration.
  *
  * @author Radoslav Husar
- * @version Jun 2015
  */
 public class AZURE_PINGConfigurationTest {
 
