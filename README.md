@@ -103,6 +103,16 @@ The tests expect valid credentials for Azure which you can supply using properti
 
 
 
+## Support Matrix
+
+Branch | JGroups version | Azure Storage version | Java version
+------ | --------------- | --------------------- | ------------
+0.9    | 3.2.16.Final    | 5.0.0                 | 1.6
+1.0    | 3.6.7.Final     | 4.0.0                 | 1.7
+1.1    | 3.6.13.Final    | 5.0.0                 | 1.8
+master | 4.0.9.Final     | 6.1.0                 | 1.8
+
+
 ## License
 
     Copyright 2018 Red Hat Inc.
