@@ -41,7 +41,6 @@ import org.jgroups.util.Responses;
  * Implementation of PING protocols for AZURE using Storage Blobs. See /DESIGN.md for design.
  *
  * @author Radoslav Husar
- * @version Jun 2015
  */
 public class AZURE_PING extends FILE_PING {
 

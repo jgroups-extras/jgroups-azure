@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>22</version>
+        <version>25</version>
     </parent>
 
     <groupId>org.jgroups.azure</groupId>
@@ -63,7 +63,7 @@
     </scm>
 
     <properties>
-        <version.org.jgroups>3.6.13.Final</version.org.jgroups>
+        <version.org.jgroups>4.0.9.Final</version.org.jgroups>
         <version.com.microsoft.azure.azure-storage>6.1.0</version.com.microsoft.azure.azure-storage>
 
         <!-- Overridden versions as managed by WildFly -->

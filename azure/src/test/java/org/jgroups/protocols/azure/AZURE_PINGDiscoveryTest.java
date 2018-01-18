@@ -19,6 +19,7 @@ package org.jgroups.protocols.azure;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.jgroups.JChannel;
 import org.jgroups.util.Util;
@@ -29,7 +30,6 @@ import org.junit.Test;
  * Functional tests for AZURE_PING discovery.
  *
  * @author Radoslav Husar
- * @version Jun 2015
  */
 public class AZURE_PINGDiscoveryTest {
 
@@ -53,12 +53,14 @@ public class AZURE_PINGDiscoveryTest {
     private void discover(String clusterName) throws Exception {
         List<JChannel> channels = create(clusterName);
 
+        Thread.sleep(TimeUnit.SECONDS.toMillis(2));
+
+        printViews(channels);
+
         // Asserts the views are there
         for (JChannel channel : channels) {
             Assert.assertEquals("member count", CHANNEL_COUNT, channel.getView().getMembers().size());
         }
-
-        printViews(channels);
 
         // Stop all channels
         // n.b. all channels must be closed, only disconnecting all concurrently can leave stale data
