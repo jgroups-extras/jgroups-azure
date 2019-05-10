@@ -1,5 +1,6 @@
 sudo: false
 language: java
+before_script: "rm $HOME/.m2/settings.xml"
 jdk:
   - oraclejdk8
   - oraclejdk9
