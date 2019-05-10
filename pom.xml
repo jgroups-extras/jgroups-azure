@@ -149,11 +149,12 @@
         </pluginManagement>
     </build>
 
+    <!-- Required for org.slf4j:1.7.7.jbossorg-1 -->
     <repositories>
         <repository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -170,7 +171,7 @@
         <pluginRepository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
