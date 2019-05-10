@@ -1,9 +1,8 @@
 sudo: false
 language: java
-before_script: "rm $HOME/.m2/settings.xml"
 jdk:
   - oraclejdk8
   - oraclejdk9
-script: "mvn clean install -Dazure.account_name=$account_name -Dazure.access_key=$access_key -Djava.net.preferIPv4Stack=true"
+script: "echo > $HOME/.m2/settings.xml && mvn clean install -Dazure.account_name=$account_name -Dazure.access_key=$access_key -Djava.net.preferIPv4Stack=true"
 notifications:
   email: false
