@@ -23,6 +23,7 @@ import java.util.UUID;
 import org.jgroups.JChannel;
 import org.jgroups.util.Util;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 
 /**
@@ -38,6 +39,7 @@ public class AZURE_PINGDiscoveryTest {
 
     @Test
     public void testDiscovery() throws Exception {
+        assumeCredentials();
 
         List<JChannel> channels = create();
 
@@ -54,6 +56,10 @@ public class AZURE_PINGDiscoveryTest {
             channel.close();
         }
 
+    }
+
+    private static void assumeCredentials() {
+        Assume.assumeTrue("Credentials are not available, test is ignored!", System.getProperty("azure.access_key") != null && System.getProperty("azure.account_name") != null);
     }
 
     private List<JChannel> create() throws Exception {

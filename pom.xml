@@ -69,7 +69,7 @@
         <!-- Overridden versions as managed by target container (WildFly 10.0.0.Final) -->
         <version.com.fasterxml.jackson>2.5.1</version.com.fasterxml.jackson> <!-- overrides 2.6.0 -->
         <version.org.slf4j>1.7.7.jbossorg-1</version.org.slf4j> <!-- overrides 1.7.12 -->
-        <!-- <version.org.apache.commons>3.4</version.org.apache.commons> --> <!-- removed dependency -->
+        <version.org.apache.commons>3.4</version.org.apache.commons> <!-- removed dependency -->
     </properties>
 
     <dependencyManagement>
@@ -149,11 +149,12 @@
         </pluginManagement>
     </build>
 
+    <!-- Required for org.slf4j:1.7.7.jbossorg-1 -->
     <repositories>
         <repository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -170,7 +171,7 @@
         <pluginRepository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
