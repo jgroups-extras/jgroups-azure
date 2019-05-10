@@ -63,7 +63,7 @@
     </scm>
 
     <properties>
-        <version.org.jgroups>4.0.10.Final</version.org.jgroups>
+        <version.org.jgroups>4.0.19.Final</version.org.jgroups>
         <version.com.microsoft.azure.azure-storage>6.1.0</version.com.microsoft.azure.azure-storage>
 
         <!-- Overridden versions as managed by WildFly -->
