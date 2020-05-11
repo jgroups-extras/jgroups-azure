@@ -1,10 +1,10 @@
-sudo: false
 language: java
+dist: bionic
 jdk:
-  - oraclejdk8
-  - oraclejdk9
+  - openjdk8
+  - openjdk10
+  - openjdk11
 install: "rm $HOME/.m2/settings.xml && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
-# Temporarily disable tests against live instance until available valid credentials
-#script: "mvn clean install -Dazure.account_name=$account_name -Dazure.access_key=$access_key -Djava.net.preferIPv4Stack=true"
+script: "mvn clean install -Dazure.account_name=$account_name -Dazure.access_key=$access_key -Djava.net.preferIPv4Stack=true"
 notifications:
   email: false
