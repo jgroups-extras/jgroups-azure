@@ -41,7 +41,7 @@ batch
 /subsystem=jgroups/stack=tcp/protocol=MPING:remove
 /subsystem=jgroups/stack=tcp/protocol=azure.AZURE_PING:add(add-index=0,properties=[storage_account_name=${jboss.jgroups.azure_ping.storage_account_name:},storage_access_key=${jboss.jgroups.azure_ping.storage_access_key:},container=${jboss.jgroups.azure_ping.container:}])
 run-batch
-/:reload
+reload
 ```
 
 _Note that due to issue [WFLY-6782](https://issues.jboss.org/browse/WFLY-6782) adding via CLI may fail on older versions._
