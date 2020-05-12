@@ -81,7 +81,7 @@ public class AZURE_PINGDiscoveryTest {
     private List<JChannel> create(String clusterName) throws Exception {
         List<JChannel> result = new LinkedList<>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
-            JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/protocols/azure/tpc-azure.xml"));
+            JChannel channel = new JChannel("org/jgroups/protocols/azure/tpc-azure.xml");
 
             channel.connect(clusterName);
             if (i == 0) {
