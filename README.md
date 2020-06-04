@@ -100,8 +100,9 @@ _Note that running the tests requires access to Azure._
 
 The tests expect valid credentials for Azure which you can supply using properties:
 
-    $ mvn test -Dazure.account_name="A" -Dazure.access_key="B" -Djava.net.preferIPv4Stack=true
-
+    $ export account_name=foo
+    $ export access_key=bar
+    $ mvn test -Dazure.account_name="${account_name}" -Dazure.access_key="${access_key}" -Djava.net.preferIPv4Stack=true
 
 
 ## Support Matrix
