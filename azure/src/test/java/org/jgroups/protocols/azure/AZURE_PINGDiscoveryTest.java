@@ -16,16 +16,16 @@
 
 package org.jgroups.protocols.azure;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
 import org.jgroups.JChannel;
 import org.jgroups.util.Util;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Functional tests for AZURE_PING discovery.
@@ -81,7 +81,7 @@ public class AZURE_PINGDiscoveryTest {
     private List<JChannel> create(String clusterName) throws Exception {
         List<JChannel> result = new LinkedList<>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
-            JChannel channel = new JChannel(this.getClass().getResource("/org/jgroups/protocols/azure/tpc-azure.xml"));
+            JChannel channel = new JChannel("/org/jgroups/protocols/azure/tpc-azure.xml");
 
             channel.connect(clusterName);
             if (i == 0) {
