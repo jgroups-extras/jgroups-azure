@@ -120,6 +120,8 @@
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <tagNameFormat>@{project.version}</tagNameFormat>
+                    <arguments>-DskipTests=true -Dmaven.test.skip=true -Dmaven.javadoc.skip=true</arguments>
+                    <preparationGoals>clean</preparationGoals>
                 </configuration>
             </plugin>
         </plugins>
