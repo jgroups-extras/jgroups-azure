@@ -1,8 +1,6 @@
 language: java
 dist: bionic
 jdk:
-  - openjdk8
-  - openjdk10
   - openjdk11
 install: "rm $HOME/.m2/settings.xml && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
 script: "mvn clean install -Dazure.account_name=$account_name -Dazure.access_key=$access_key -Djava.net.preferIPv4Stack=true"
