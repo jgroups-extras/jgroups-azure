@@ -1,6 +1,5 @@
 # JGroups Azure
 
-[![Build Status](https://travis-ci.org/jgroups-extras/jgroups-azure.svg?branch=master)](https://travis-ci.org/jgroups-extras/jgroups-azure)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jgroups-extras/jgroups-azure)](https://dependabot.com)
 
 Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft

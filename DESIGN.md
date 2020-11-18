@@ -35,7 +35,7 @@ Design
 ------
 
 Just like other cloud-based PING protocols, the implementation is based on the original FILE_PING. All ping information
-is stored in the the configured storage container. If a container with that name does not exist, it will be
+is stored in the configured storage container. If a container with that name does not exist, it will be
 automatically created.
 
 Within the container, ping data is stored in flat files with names constructed as:
