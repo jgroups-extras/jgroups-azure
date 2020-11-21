@@ -7,7 +7,7 @@ Azure Java SDK.
 
 ## Configuration
 
-### WildFly 10.1 / JBoss EAP 7.0
+### WildFly 10.1 or later / JBoss EAP 7.0 or later
 
 #### Using a preconfigured profile
 
@@ -32,7 +32,7 @@ server profiles with the following configuration (no need to specify module name
 #### Upgrading an existing profile via CLI
 
 To upgrade an existing profile to use TCP stack by default and AZURE_PING protocol via CLI, start `./bin/jboss-cli.sh`
-(or corresponding `bat` script on Windows) and run the following batch followed by a reload:
+(or corresponding script on Windows) and run the following batch followed by a reload:
 
 ```
 batch
@@ -41,27 +41,6 @@ batch
 /subsystem=jgroups/stack=tcp/protocol=azure.AZURE_PING:add(add-index=0,properties=[storage_account_name=${jboss.jgroups.azure_ping.storage_account_name:},storage_access_key=${jboss.jgroups.azure_ping.storage_access_key:},container=${jboss.jgroups.azure_ping.container:}])
 run-batch
 reload
-```
-
-_Note that due to issue [WFLY-6782](https://issues.redhat.com/browse/WFLY-6782) adding via CLI may fail on versions prior to 10.1.0.Final._
-
-### WildFly 10.0 and older
-
-First copy the required modules (from `dist/target/wildfly-jgroups-azure-<version>/modules`) to the WildFly installation,
-then replace the existing discovery protocol (PING, MPING, etc.) with the following:
-
-```xml
-<protocol type="azure.AZURE_PING" module="org.jgroups.azure">
-    <property name="storage_account_name">
-         ${jboss.jgroups.azure_ping.storage_account_name}
-    </property>
-    <property name="storage_access_key">
-         ${jboss.jgroups.azure_ping.storage_access_key}
-    </property>
-    <property name="container">
-         ${jboss.jgroups.azure_ping.container}
-    </property>
- </protocol>
 ```
 
 ### Directly in JGroups
@@ -90,19 +69,21 @@ Then add or replace an existing discovery protocol in the stack:
 
 Use Maven to build:
 
-    $ mvn install -DskipTests
+    mvn install
 
-_Note that running the tests requires access to Azure._
+Or use Maven wrapper for convenience:
 
+    ./mvnw install
 
 ## Testing
 
-The tests expect valid credentials for Azure which you can supply using properties:
+To run all tests, credentials for Azure are expected. These can be supplied using test properties:
 
-    $ export account_name=foo
-    $ export access_key=bar
-    $ mvn test -Dazure.account_name="${account_name}" -Dazure.access_key="${access_key}" -Djava.net.preferIPv4Stack=true
+    export account_name=foo
+    export access_key=bar
+    mvn test -Dazure.account_name="${account_name}" -Dazure.access_key="${access_key}" -Djava.net.preferIPv4Stack=true
 
+If valid credentials are not provided, tests requiring them are skipped.
 
 ## Support Matrix
 
@@ -112,8 +93,8 @@ Version (branch) | JGroups version | Azure Storage version | Java version
 1.0              | 3.6.7.Final     | 4.0.0                 | 7
 1.1              | 3.6.13.Final    | 5.0.0                 | 8
 1.2              | 4.0.x           | 6.1.0                 | 8
-1.3              | 4.2.x           | 8.6.5                 | 8, 10, 11
-2.0 (master)     | 5.x             | 8.6.5                 | 11          
+1.3              | 4.2.x           | 8.6.5                 | 8
+2.0 (master)     | 5.1.x           | 8.6.5                 | 11          
 
 
 ## License

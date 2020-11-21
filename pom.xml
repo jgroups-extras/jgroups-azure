@@ -35,7 +35,6 @@
 
     <modules>
         <module>azure</module>
-        <module>dist</module>
     </modules>
 
     <licenses>
@@ -51,7 +50,7 @@
             <email>rhusar@redhat.com</email>
             <url>http://radoslavhusar.com/</url>
             <organization>Red Hat Inc.</organization>
-            <organizationUrl>http://www.redhat.com/</organizationUrl>
+            <organizationUrl>https://www.redhat.com/</organizationUrl>
         </developer>
     </developers>
 
