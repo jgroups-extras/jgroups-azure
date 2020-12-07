@@ -1,6 +1,6 @@
 # JGroups Azure
 
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jgroups-extras/jgroups-azure)](https://dependabot.com)
+[![CI](https://github.com/jgroups-extras/jgroups-azure/workflows/CI/badge.svg)](https://github.com/jgroups-extras/jgroups-azure/actions) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jgroups-extras/jgroups-azure)](https://dependabot.com)
 
 Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft
 Azure Java SDK.
