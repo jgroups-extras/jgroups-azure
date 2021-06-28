@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>37</version>
+        <version>38</version>
     </parent>
 
     <groupId>org.jgroups.azure</groupId>
@@ -35,7 +35,6 @@
 
     <modules>
         <module>azure</module>
-        <module>dist</module>
     </modules>
 
     <licenses>
@@ -51,7 +50,7 @@
             <email>rhusar@redhat.com</email>
             <url>http://radoslavhusar.com/</url>
             <organization>Red Hat Inc.</organization>
-            <organizationUrl>http://www.redhat.com/</organizationUrl>
+            <organizationUrl>https://www.redhat.com/</organizationUrl>
         </developer>
     </developers>
 
@@ -63,12 +62,12 @@
     </scm>
 
     <properties>
-        <version.org.jgroups>5.0.1.Final</version.org.jgroups>
+        <version.org.jgroups>5.1.8.Final</version.org.jgroups>
         <version.com.microsoft.azure.azure-storage>8.6.5</version.com.microsoft.azure.azure-storage>
 
         <!-- Overridden versions as managed by WildFly -->
-        <version.com.fasterxml.jackson>2.11.2</version.com.fasterxml.jackson> <!-- azure-storage uses 2.6.0 -->
-        <version.org.slf4j>1.7.30</version.org.slf4j> <!-- azure-storage uses 1.7.12 -->
+        <version.com.fasterxml.jackson>2.12.1</version.com.fasterxml.jackson> <!-- azure-storage uses 2.6.0 -->
+        <version.org.slf4j>1.7.31</version.org.slf4j> <!-- azure-storage uses 1.7.12 -->
     </properties>
 
     <dependencyManagement>
@@ -106,7 +105,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13</version>
+                <version>4.13.2</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
