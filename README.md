@@ -1,7 +1,5 @@
 # JGroups Azure
 
-[![Build Status](https://travis-ci.org/jgroups-extras/jgroups-azure.svg?branch=0.9)](https://travis-ci.org/jgroups-extras/jgroups-azure)
-
 *Support branch for EAP 6.4.15 (or higher) and for JGroups 3.2.16 (or higher).*
 
 Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft
