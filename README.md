@@ -7,6 +7,16 @@ Azure Java SDK.
 
 ## Configuration
 
+### Properties
+
+Property name          | Description                                                     | Required / Default value
+---------------------- | --------------------------------------------------------------- | ------------------------
+`storage_account_name` | The name of the storage account.                                | _Required._
+`storage_access_key`   | The secret account access key.                                  | _Required._
+`container`            | Container to store ping information in. Must be valid DNS name. | _Required._
+`use_https`            | Whether or not to use HTTPS to connect to Azure.                | `true`
+`endpoint_suffix`      | The endpointSuffix to use.                                      |
+
 ### WildFly 10.1 or later / JBoss EAP 7.0 or later
 
 #### Using a preconfigured profile
