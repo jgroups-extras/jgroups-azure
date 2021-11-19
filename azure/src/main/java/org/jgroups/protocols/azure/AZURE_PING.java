@@ -58,6 +58,9 @@ public class AZURE_PING extends FILE_PING {
     @Property(description = "Whether or not to use HTTPS to connect to Azure.")
     protected boolean use_https = true;
 
+    @Property(description = "The endpointSuffix to use.")
+    protected String endpoint_suffix;
+
     public static final int STREAM_BUFFER_SIZE = 4096;
 
     private CloudBlobContainer containerReference;
@@ -76,7 +79,12 @@ public class AZURE_PING extends FILE_PING {
 
         try {
             StorageCredentials credentials = new StorageCredentialsAccountAndKey(storage_account_name, storage_access_key);
-            CloudStorageAccount storageAccount = new CloudStorageAccount(credentials, use_https);
+            CloudStorageAccount storageAccount;
+            if (endpoint_suffix != null) {
+                storageAccount = new CloudStorageAccount(credentials, use_https, endpoint_suffix);
+            } else {
+                storageAccount = new CloudStorageAccount(credentials, use_https);
+            }
             CloudBlobClient blobClient = storageAccount.createCloudBlobClient();
             containerReference = blobClient.getContainerReference(container);
             boolean created = containerReference.createIfNotExists();

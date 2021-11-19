@@ -93,8 +93,8 @@ Version (branch) | JGroups version | Azure Storage version | Java version
 1.0              | 3.6.7.Final     | 4.0.0                 | 7
 1.1              | 3.6.13.Final    | 5.0.0                 | 8
 1.2              | 4.0.x           | 6.1.0                 | 8
-1.3              | 4.2.x           | 8.6.5                 | 8
-2.0 (main)       | 5.1.x           | 8.6.5                 | 11          
+1.3              | 4.2.x           | 8.6.6                 | 8
+2.0 (main)       | 5.1.x           | 8.6.6                 | 11          
 
 
 ## License
