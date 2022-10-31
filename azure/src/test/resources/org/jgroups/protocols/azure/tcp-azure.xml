@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2015 Red Hat Inc., and individual contributors
+  ~ Copyright 2022 Red Hat Inc., and individual contributors
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,8 +15,10 @@
   -->
 
 <!--
-  Formatted copy of the original jgroups-4.0.9.Final.jar!/tcp.xml reconfigured to use AZURE_PING.
+  Formatted copy of the original ~/.m2/repository/org/jgroups/jgroups/5.2.8.Final/jgroups-5.2.8.Final.jar!/tcp.xml
+  reconfigured to use AZURE_PING instead of TCPPING.
 -->
+
 <!--
     TCP based stack, with flow control and message bundling. This is usually used when IP
     multicasting cannot be used in a network, e.g. because it is disabled (routers discard multicast).
@@ -27,31 +29,30 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="urn:org:jgroups"
         xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd">
-    <TCP bind_port="7800"
-         recv_buf_size="${tcp.recv_buf_size:130k}"
-         send_buf_size="${tcp.send_buf_size:130k}"
-         max_bundle_size="64K"
-         sock_conn_timeout="300"
+    <TCP bind_addr="${jgroups.bind_addr:site_local}"
+         bind_port="${jgroups.bind_port:7800}"
+         external_addr="${jgroups.external_addr}"
+         external_port="${jgroups.external_port}"
          thread_pool.min_threads="0"
-         thread_pool.max_threads="20"
+         thread_pool.max_threads="200"
          thread_pool.keep_alive_time="30000"/>
+    <RED/>
     <azure.AZURE_PING storage_account_name="${azure.account_name}"
                       storage_access_key="${azure.access_key}"
                       container="${azure.container:ping}"/>
     <MERGE3 min_interval="10000"
             max_interval="30000"/>
-    <FD_SOCK/>
-    <FD timeout="3000"
-        max_tries="3"/>
-    <VERIFY_SUSPECT timeout="1500"/>
+    <FD_SOCK2/>
+    <FD_ALL3 timeout="40000" interval="5000"/>
+    <VERIFY_SUSPECT2 timeout="1500"/>
     <BARRIER/>
-    <pbcast.NAKACK2 use_mcast_xmit="false"
-                    discard_delivered_msgs="true"/>
+    <pbcast.NAKACK2 use_mcast_xmit="false"/>
     <UNICAST3/>
     <pbcast.STABLE desired_avg_gossip="50000"
                    max_bytes="4M"/>
-    <pbcast.GMS print_local_addr="true"
-                join_timeout="2000"/>
+    <pbcast.GMS print_local_addr="true" join_timeout="2000"/>
+    <UFC max_credits="2M"
+         min_threshold="0.4"/>
     <MFC max_credits="2M"
          min_threshold="0.4"/>
     <FRAG2 frag_size="60K"/>
