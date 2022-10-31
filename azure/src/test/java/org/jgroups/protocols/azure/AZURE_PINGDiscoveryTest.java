@@ -16,16 +16,16 @@
 
 package org.jgroups.protocols.azure;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 import org.jgroups.JChannel;
 import org.jgroups.util.Util;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Functional tests for AZURE_PING discovery.
@@ -39,6 +39,31 @@ public class AZURE_PINGDiscoveryTest {
     // The cluster names need to randomized so that multiple test runs can be run in parallel with the same
     // credentials (e.g. running JDK8 and JDK9 on the CI).
     public static final String RANDOM_CLUSTER_NAME = UUID.randomUUID().toString();
+
+    /**
+     * This is a simple smoke test to run with credentials are available. Verify that the test stack will fail to start
+     * the channel in {@link AZURE_PING#validateConfiguration} throwing {@link IllegalArgumentException} and
+     * not elsewhere, e.g. missing a protocol after a major jgroups.jar upgrade.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testProtocolStack() throws Exception {
+        JChannel channel = new JChannel("org/jgroups/protocols/azure/tpc-azure.xml");
+
+        channel.getProtocolStack().getProtocols().replaceAll(protocol -> {
+            if (protocol instanceof AZURE_PING) {
+                return new AZURE_PING();
+            } else {
+                return protocol;
+            }
+        });
+
+        try {
+            channel.connect(RANDOM_CLUSTER_NAME);
+        } finally {
+            channel.close();
+        }
+
+    }
 
     @Test
     public void testDiscovery() throws Exception {
@@ -85,7 +110,7 @@ public class AZURE_PINGDiscoveryTest {
 
             channel.connect(clusterName);
             if (i == 0) {
-                // Lets be clear about the coordinator
+                // Let's be clear about the coordinator
                 Util.sleep(1000);
             }
             result.add(channel);
