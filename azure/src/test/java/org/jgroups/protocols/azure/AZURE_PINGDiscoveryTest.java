@@ -34,6 +34,7 @@ import org.junit.Test;
  */
 public class AZURE_PINGDiscoveryTest {
 
+    public static final String STACK_XML_CONFIGURATION = "org/jgroups/protocols/azure/tcp-azure.xml";
     public static final int CHANNEL_COUNT = 5;
 
     // The cluster names need to randomized so that multiple test runs can be run in parallel with the same
@@ -47,7 +48,7 @@ public class AZURE_PINGDiscoveryTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testProtocolStack() throws Exception {
-        JChannel channel = new JChannel("org/jgroups/protocols/azure/tpc-azure.xml");
+        JChannel channel = new JChannel(STACK_XML_CONFIGURATION);
 
         channel.getProtocolStack().getProtocols().replaceAll(protocol -> {
             if (protocol instanceof AZURE_PING) {
@@ -106,7 +107,7 @@ public class AZURE_PINGDiscoveryTest {
     private List<JChannel> create(String clusterName) throws Exception {
         List<JChannel> result = new LinkedList<>();
         for (int i = 0; i < CHANNEL_COUNT; i++) {
-            JChannel channel = new JChannel("org/jgroups/protocols/azure/tpc-azure.xml");
+            JChannel channel = new JChannel(STACK_XML_CONFIGURATION);
 
             channel.connect(clusterName);
             if (i == 0) {
