@@ -79,11 +79,11 @@ Then add or replace an existing discovery protocol in the stack:
 
 Use Maven to build:
 
-    mvn install
+    mvn clean install
 
 Or use Maven wrapper for convenience:
 
-    ./mvnw install
+    ./mvnw clean install
 
 ## Testing
 
@@ -109,7 +109,7 @@ Version (branch) | JGroups version | Azure Storage version | Java version
 
 ## License
 
-    Copyright 2020 Red Hat Inc.
+    Copyright 2022 Red Hat Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
