@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/jgroups-extras/jgroups-azure/workflows/CI/badge.svg)](https://github.com/jgroups-extras/jgroups-azure/actions)
 
-Implementation of Azure ping protocol using Azure Storage blobs. Makes use of official Microsoft
+Implementation of Azure ping protocol using Azure Storage blobs for [JGroups](http://www.jgroups.org/) project using official Microsoft
 Azure Java SDK.
 
 ## Configuration
@@ -46,9 +46,9 @@ To upgrade an existing profile to use TCP stack by default and AZURE_PING protoc
 
 ```
 batch
-/subsystem=jgroups/channel=ee:write-attribute(name=stack,value=tcp)
+/subsystem=jgroups/channel=ee:write-attribute(name=stack, value=tcp)
 /subsystem=jgroups/stack=tcp/protocol=MPING:remove
-/subsystem=jgroups/stack=tcp/protocol=azure.AZURE_PING:add(add-index=0,properties=[storage_account_name=${jboss.jgroups.azure_ping.storage_account_name:},storage_access_key=${jboss.jgroups.azure_ping.storage_access_key:},container=${jboss.jgroups.azure_ping.container:}])
+/subsystem=jgroups/stack=tcp/protocol=azure.AZURE_PING:add(add-index=0, properties=[storage_account_name=${jboss.jgroups.azure_ping.storage_account_name:}, storage_access_key=${jboss.jgroups.azure_ping.storage_access_key:}, container=${jboss.jgroups.azure_ping.container:}])
 run-batch
 reload
 ```
