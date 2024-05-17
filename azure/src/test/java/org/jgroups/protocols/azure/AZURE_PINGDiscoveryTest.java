@@ -50,18 +50,15 @@ public class AZURE_PINGDiscoveryTest {
     public void testProtocolStack() throws Exception {
         JChannel channel = new JChannel(STACK_XML_CONFIGURATION);
 
-        channel.getProtocolStack().getProtocols().replaceAll(protocol -> {
-            if (protocol instanceof AZURE_PING) {
-                return new AZURE_PING();
-            } else {
-                return protocol;
-            }
-        });
-
-        try {
+        try (channel) {
+            channel.getProtocolStack().getProtocols().replaceAll(protocol -> {
+                if (protocol instanceof AZURE_PING) {
+                    return new AZURE_PING();
+                } else {
+                    return protocol;
+                }
+            });
             channel.connect(RANDOM_CLUSTER_NAME);
-        } finally {
-            channel.close();
         }
 
     }
