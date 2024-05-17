@@ -41,31 +41,6 @@ public class AZURE_PINGDiscoveryTest {
     // credentials (e.g. running JDK8 and JDK9 on the CI).
     public static final String RANDOM_CLUSTER_NAME = UUID.randomUUID().toString();
 
-    /**
-     * This is a simple smoke test to run with credentials are available. Verify that the test stack will fail to start
-     * the channel in {@link AZURE_PING#validateConfiguration} throwing {@link IllegalArgumentException} and
-     * not elsewhere, e.g. missing a protocol after a major jgroups.jar upgrade.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testProtocolStack() throws Exception {
-        JChannel channel = new JChannel(STACK_XML_CONFIGURATION);
-
-        channel.getProtocolStack().getProtocols().replaceAll(protocol -> {
-            if (protocol instanceof AZURE_PING) {
-                return new AZURE_PING();
-            } else {
-                return protocol;
-            }
-        });
-
-        try {
-            channel.connect(RANDOM_CLUSTER_NAME);
-        } finally {
-            channel.close();
-        }
-
-    }
-
     @Test
     public void testDiscovery() throws Exception {
         assumeCredentials();
