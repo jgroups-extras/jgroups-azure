@@ -80,7 +80,7 @@
 
         <!-- Runtime dependencies -->
         <version.org.jgroups>5.5.4.Final</version.org.jgroups> <!-- Reference: https://mvnrepository.com/artifact/org.jgroups/jgroups -->
-        <version.com.azure.azure-sdk-bom>1.3.6</version.com.azure.azure-sdk-bom> <!-- Reference: https://mvnrepository.com/artifact/com.azure/azure-sdk-bom -->
+        <version.com.azure.azure-sdk-bom>1.3.7</version.com.azure.azure-sdk-bom> <!-- Reference: https://mvnrepository.com/artifact/com.azure/azure-sdk-bom -->
 
         <!-- Test dependencies -->
         <version.org.testcontainers>2.0.5</version.org.testcontainers> <!-- Reference: https://mvnrepository.com/artifact/org.testcontainers/testcontainers -->
